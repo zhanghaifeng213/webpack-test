@@ -6,7 +6,8 @@ module.exports = {
 		main: './src/index.js'
 	},
 	module: {
-		rules: [{
+		rules: [
+		{
 			test: /\.(jpg|png|gif)$/,
 			use: {
 				loader: 'url-loader',
@@ -19,8 +20,20 @@ module.exports = {
 		},
 		{
 			test: /\.scss$/,
-			use: ['style-loader', 'css-loader', 'sass-loader', 'postcss-loader']
-		}
+			use: ['style-loader', {
+				loader: 'css-loader',
+				options: {
+					importLoaders: 2,
+					// modules: true
+				}
+			}, 'sass-loader', 'postcss-loader']
+		},
+		{
+			test: /\.(eot|ttf|svg)$/,
+			use: {
+				loader: 'file-loader'
+			}
+		},
 	]
 	},
 	output: {
