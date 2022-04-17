@@ -11,6 +11,14 @@ module.exports = {
 		main: './src/index.js',
 		// sub: './src/index.js'
 	},
+	devServer: {
+		contentBase: "./dist",
+		open: true,
+		port: 8080,
+		proxy: {
+			"/api": "http://localhost:3000"
+		}
+	},
 	module: {
 		rules: [
 		{
@@ -51,6 +59,7 @@ module.exports = {
 	output: {
 		// publicPath: "http:cdn.com",
 		filename: '[name]_[hash].js',
-		path: path.resolve(__dirname, 'dist')
+		path: path.resolve(__dirname, 'dist'),
+		publicPath: "/"
 	}
 }
