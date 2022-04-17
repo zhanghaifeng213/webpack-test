@@ -5,6 +5,17 @@ const webpack = require("webpack")
 
 // webpack plugin可以在webpack运行到某个时刻的时候，帮你做一些事情
 
+	// presets: [['@babel/preset-env',{
+	// 	useBuiltIns: 'usage',
+	// 	"targets": {
+	// 		"edge": "17",
+	// 		"firefox": "60",
+	// 		"chrome": "67",
+	// 		"safari": "11.1"
+	// 	},
+	// }]]
+
+
 module.exports = {
 	mode: 'development',
 	devtool: 'cheap-module-eval-source-map',
@@ -50,11 +61,6 @@ module.exports = {
 			exclude: /node_modules/,
 			use: {
 				loader: "babel-loader",
-				options: {
-					presets: [['@babel/preset-env',{
-						useBuiltIns: 'usage'
-					}]]
-				}
 			}
 		}
 	]
