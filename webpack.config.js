@@ -1,6 +1,7 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
+const webpack = require("webpack")
 
 // webpack plugin可以在webpack运行到某个时刻的时候，帮你做一些事情
 
@@ -17,7 +18,9 @@ module.exports = {
 		port: 8080,
 		proxy: {
 			"/api": "http://localhost:3000"
-		}
+		},
+		hot: true,
+		hotOnly: true
 	},
 	module: {
 		rules: [
@@ -33,14 +36,8 @@ module.exports = {
 			}
 		},
 		{
-			test: /\.scss$/,
-			use: ['style-loader', {
-				loader: 'css-loader',
-				options: {
-					importLoaders: 2,
-					// modules: true
-				}
-			}, 'sass-loader', 'postcss-loader']
+			test: /\.css$/,
+			use: ['style-loader', 'css-loader', 'postcss-loader']
 		},
 		{
 			test: /\.(eot|ttf|svg)$/,
@@ -54,7 +51,8 @@ module.exports = {
 		new HtmlWebpackPlugin({
 			template: "src/index.html"
 		}),
-		new CleanWebpackPlugin(['dist'])
+		new CleanWebpackPlugin(['dist']),
+		new webpack.HotModuleReplacementPlugin()
 	],
 	output: {
 		// publicPath: "http:cdn.com",
