@@ -6,8 +6,8 @@ const webpack = require("webpack");
 // webpack plugin可以在webpack运行到某个时刻的时候，帮你做一些事情
 
 module.exports = {
-  mode: "development", // 开发环境打包， 打包的代码不会被压缩
-  devtool: "cheap-module-eval-source-map", // 使用source-map,
+  mode: "production", // 开发环境打包， 打包的代码不会被压缩
+  devtool: "cheap-module-source-map", // 使用source-map,
   // cheap -> 生成source-map的时候不带列信息，只带行信息，
   // module -> 对loader里的代码也生成source-map
   // eval -> 执行方式
@@ -79,6 +79,9 @@ module.exports = {
     new CleanWebpackPlugin(["dist"]),
     new webpack.HotModuleReplacementPlugin(), // HMR
   ],
+  // optimization: {
+  //   usedExports: true
+  // },
   output: {
     // publicPath: "http:cdn.com",
     filename: "[name]_[hash].js", // name 对应entry
