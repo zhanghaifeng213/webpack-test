@@ -1,4 +1,9 @@
+// import test from "./test"
+// console.log(test.name);
+
 import _ from "lodash"
+import jquery from "jquery"
+
 console.log(_.join(["a","b","c"], "***"));
 
 

@@ -65,26 +65,31 @@ module.exports = {
     splitChunks: {
       chunks: 'all',
       minSize: 30000, // 大于30kb做代码分割
-      maxSize: 0,
+      maxSize: 0, // 50kb lodash 1mb 
       minChunks: 1,
       maxAsyncRequests: 5,
       maxInitialRequests: 3,
       automaticNameDelimiter: '~',
       automaticNameMaxLength: 30,
       name: true,
-      cacheGroups: {
+      cacheGroups: { // 缓存组
         vendors: {
           test: /[\\/]node_modules[\\/]/,
           priority: -10,
-          filename: "vendors.js"
+          // filename: "vendors.js"
         },
-        default: false
+        default: {
+          // minChunks: 2,
+          priority: -20,
+          reuseExistingChunk: true,
+          filename: "common.js"
+        }
       }
     }
   },
   output: {
     // publicPath: "http:cdn.com",
-    filename: "[name]_[hash].js", // name 对应entry
+    filename: "[name].js", // name 对应entry
     path: path.resolve(__dirname, "../dist"),
     publicPath: "/",
   },
