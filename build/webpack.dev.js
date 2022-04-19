@@ -29,6 +29,10 @@ const devConfig = {
   optimization: {
     usedExports: true
   },
+  output: {
+    // publicPath: "http:cdn.com",
+    publicPath: "./",
+  },
 };
 
 module.exports = merge(commonConfig, devConfig)

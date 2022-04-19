@@ -1,4 +1,18 @@
-// tree shaking只支持ES module 静态引入，不支持commonjs动态引入
-import {add} from "./math"
+// import _ from "lodash"
+// console.log(_.join(["a","b","c"], "***"));
 
-add(1,2);
+
+// console.log(_.join(["a","b","c"], "***"));
+// console.log(_.join(["a","b","c"], "***"));
+
+function getComponent() {
+    return import('lodash').then(({default: _}) => {
+        var element =document.createElement("div")
+        element.innerHTML = _.join(["hello","world"], "-")
+        return element
+    })
+}
+
+getComponent().then(element => {
+    document.body.appendChild(element)
+})
