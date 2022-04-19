@@ -66,7 +66,7 @@ module.exports = {
       chunks: 'all',
       minSize: 30000, // 大于30kb做代码分割
       maxSize: 0, // 50kb lodash 1mb 
-      minChunks: 1,
+      minChunks: 1, // 至少一个依赖的文件被引入 进行代码分割
       maxAsyncRequests: 5,
       maxInitialRequests: 3,
       automaticNameDelimiter: '~',
