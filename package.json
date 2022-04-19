@@ -5,7 +5,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev-build": "webpack --config ./build/webpack.dev.js",
+    "dev-build": "webpack --profile --json > stats.json --config ./build/webpack.dev.js",
     "bundle": "webpack",
     "watch": "webpack --watch",
     "dev": "webpack-dev-server --config ./build/webpack.dev.js",
@@ -45,6 +45,7 @@
     "@babel/polyfill": "^7.0.0",
     "@babel/runtime": "^7.2.0",
     "@babel/runtime-corejs2": "^7.2.0",
+    "core-js": "^3.22.0",
     "jquery": "^3.6.0",
     "lodash": "^4.17.21",
     "react": "^16.6.3",

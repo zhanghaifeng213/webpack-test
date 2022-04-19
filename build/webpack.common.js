@@ -91,6 +91,6 @@ module.exports = {
     // publicPath: "http:cdn.com",
     filename: "[name].js", // name 对应entry
     path: path.resolve(__dirname, "../dist"),
-    publicPath: "/",
+    publicPath: "./",
   },
 }
