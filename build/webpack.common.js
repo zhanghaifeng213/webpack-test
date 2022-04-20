@@ -20,24 +20,7 @@ module.exports = {
           },
         },
       },
-      {
-        test: /\.scss$/,
-        use: [
-          "style-loader",
-          {
-            loader: "css-loader",
-            options: {
-              importLoaders: 2, // scss 引入的scss重新使用"sass-loader", "postcss-loader",处理
-            },
-          },
-          "sass-loader",
-          "postcss-loader",
-        ],
-      },
-      {
-        test: /\.css$/,
-        use: ["style-loader", "css-loader", "postcss-loader"],
-      },
+      
       {
         test: /\.(eot|ttf|svg)$/,
         use: {
@@ -62,6 +45,7 @@ module.exports = {
     }),
   ],
   optimization: {
+    usedExports: true,
     splitChunks: {
       chunks: 'all',
       minSize: 30000, // 大于30kb做代码分割
@@ -90,6 +74,7 @@ module.exports = {
   output: {
     // publicPath: "http:cdn.com",
     filename: "[name].js", // name 对应entry
+    chunkFilename: '[name].chunk.js',
     path: path.resolve(__dirname, "../dist"),
     publicPath: "./",
   },

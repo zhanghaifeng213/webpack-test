@@ -1,5 +1,7 @@
 const {merge} = require("webpack-merge")
 const commonConfig = require("./webpack.common")
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const OptimizeCSSAssetsPlugin  = require("optimize-css-assets-webpack-plugin");
 
 // webpack plugin可以在webpack运行到某个时刻的时候，帮你做一些事情
 
@@ -10,6 +12,25 @@ const prodConfig = {
   // module -> 对loader里的代码也生成source-map
   // eval -> 执行方式
   // source-map -> 生成.source-map文件 但是用eval .source-map文件被放到打包生成的main.js里面
+  plugins: [new MiniCssExtractPlugin({
+    filename: '[name].css',
+    chunkFilename: '[name].chunk.css',
+  })],
+  optimization: {
+    minimizer: [new OptimizeCSSAssetsPlugin({})]
+  },
+  module: {
+    rules: [
+      {
+        test: /\.css$/,
+        use: [
+          MiniCssExtractPlugin.loader,
+          'css-loader',
+          'postcss-loader'
+        ]
+      },
+    ],
+  },
 };
 
 module.exports = merge(commonConfig, prodConfig)
