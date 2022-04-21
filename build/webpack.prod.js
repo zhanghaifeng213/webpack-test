@@ -2,6 +2,7 @@ const {merge} = require("webpack-merge")
 const commonConfig = require("./webpack.common")
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const OptimizeCSSAssetsPlugin  = require("optimize-css-assets-webpack-plugin");
+const path = require("path");
 
 // webpack plugin可以在webpack运行到某个时刻的时候，帮你做一些事情
 
@@ -30,6 +31,13 @@ const prodConfig = {
         ]
       },
     ],
+  },
+  output: {
+    // publicPath: "http:cdn.com",
+    filename: "[name].[contenthash].js", // name 对应entry
+    chunkFilename: '[name].[contenthash].chunk.js',
+    path: path.resolve(__dirname, "../dist"),
+    publicPath: "./",
   },
 };
 

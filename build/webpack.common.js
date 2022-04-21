@@ -45,6 +45,9 @@ module.exports = {
     }),
   ],
   optimization: {
+    runtimeChunk: {
+      name: 'runtime'
+    },
     usedExports: true,
     splitChunks: {
       chunks: 'all',
@@ -60,6 +63,7 @@ module.exports = {
         vendors: {
           test: /[\\/]node_modules[\\/]/,
           priority: -10,
+          name: 'vendors.js'
           // filename: "vendors.js"
         },
         default: {
@@ -71,11 +75,5 @@ module.exports = {
       }
     }
   },
-  output: {
-    // publicPath: "http:cdn.com",
-    filename: "[name].js", // name 对应entry
-    chunkFilename: '[name].chunk.js',
-    path: path.resolve(__dirname, "../dist"),
-    publicPath: "./",
-  },
+  performance: false,
 }
