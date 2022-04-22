@@ -53,7 +53,7 @@ const devConfig = {
   },
   output: {
     // publicPath: "http:cdn.com",
-    publicPath: "./",
+    publicPath: "/",
     filename: "[name].js", // name 对应entry
   },
 };
