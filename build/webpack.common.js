@@ -1,7 +1,6 @@
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const CleanWebpackPlugin = require("clean-webpack-plugin");
-const webpack = require("webpack")
 const {merge} = require("webpack-merge")
 const devConfig = require("./webpack.dev")
 const prodConfig = require("./webpack.prod")
@@ -36,8 +35,6 @@ const commonConfig = {
         exclude: /node_modules/, // 忽略第三方模块js代码，提高打包速度
         use: [{
           loader: "babel-loader",
-        },{
-          loader: "imports-loader?this=>window",
         }],
       },
     ],
@@ -49,10 +46,10 @@ const commonConfig = {
     new CleanWebpackPlugin(["dist"], {
       root: path.resolve(__dirname, "../")
     }),
-    new webpack.ProvidePlugin({
-      $: 'jquery',
-      _join: ["lodash","join"]
-    })
+    // new webpack.ProvidePlugin({
+    //   $: 'jquery',
+    //   _join: ["lodash","join"]
+    // })
   ],
   optimization: {
     runtimeChunk: {
