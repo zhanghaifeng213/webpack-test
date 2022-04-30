@@ -18,10 +18,22 @@ const devConfig = {
     open: true,
     port: 8080,
     proxy: {
-      "/api": "http://localhost:3000",
+      '/react/api': {
+        target: "http://www.dell-lee.com",
+        secure: false, // 配置https的转发
+        pathRewrite: {
+          "header.json": "demo.json"
+        },
+        changeOrigin: true,
+        bypass: function(req, res, proxyOptions) {
+          if(req.headers.accept.indexOf('html')!==-1){
+            return false
+          }
+        }
+      }
     },
     hot: true,
-    // hotOnly: true,
+    hotOnly: true,
   },
   plugins: [
     new webpack.HotModuleReplacementPlugin(), // HMR
@@ -31,7 +43,7 @@ const devConfig = {
   },
   output: {
     // publicPath: "http:cdn.com",
-    publicPath: "./",
+    publicPath: "/",
   },
 };
 

@@ -1,25 +1,16 @@
-// import test from "./test"
-// console.log(test.name);
+import React, {Component} from 'react';
+import ReactDom from 'react-dom';
+import axios from 'axios';
 
-// import _ from "lodash"
-// import jquery from "jquery"
-
-// console.log(_.join(["a","b","c"], "***"));
-
-
-// console.log(_.join(["a","b","c"], "***"));
-// console.log(_.join(["a","b","c"], "***"));
-
-async function getComponent() {
-    const {default: _} = await import(/*webpackChunkName:"lodash"*/'lodash')
-    var element =document.createElement("div")
-    element.innerHTML = _.join(["hello","world"], "-")
-    return element
+class App extends Component {
+  componentDidMount() {
+    axios.get("/react/api/header.json").then((res)=>{
+      console.log("res", res);
+    })
+  }
+  render() {
+    return <div>Hello world</div>
+  }
 }
 
-document.addEventListener("click",()=>{
-    getComponent().then(element => {
-        document.body.appendChild(element)
-    })
-})
-
+ReactDom.render(<App />, document.getElementById("root"));
