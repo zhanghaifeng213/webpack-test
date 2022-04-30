@@ -49,6 +49,7 @@
     "jquery": "^3.6.0",
     "lodash": "^4.17.21",
     "react": "^16.6.3",
-    "react-dom": "^16.6.3"
+    "react-dom": "^16.6.3",
+    "react-router-dom": "^6.3.0"
   }
 }

@@ -34,6 +34,7 @@ const devConfig = {
     },
     hot: true,
     hotOnly: true,
+    historyApiFallback: true,
   },
   plugins: [
     new webpack.HotModuleReplacementPlugin(), // HMR

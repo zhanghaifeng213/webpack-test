@@ -1,16 +1,33 @@
-import React, {Component} from 'react';
-import ReactDom from 'react-dom';
-import axios from 'axios';
+
+import {
+  BrowserRouter,
+  Routes,
+  Route,
+  Link
+} from "react-router-dom";
+
+import Home from "./home";
+import List from "./list";
+
+const rootElement = document.getElementById("root");
+
+
+import React, {Component} from "react"
+import ReactDom from "react-dom";
 
 class App extends Component {
-  componentDidMount() {
-    axios.get("/react/api/header.json").then((res)=>{
-      console.log("res", res);
-    })
-  }
-  render() {
-    return <div>Hello world</div>
+  render(){
+    return (
+      <BrowserRouter>
+        <Link to="/list">qqq</Link>
+        <Routes>
+          <Route path="/" exact element={<Home />} />
+          <Route path="/list" element={<List />} />
+        </Routes>
+      
+      </BrowserRouter>
+    )
   }
 }
 
-ReactDom.render(<App />, document.getElementById("root"));
+ReactDom.render(<App/>,document.getElementById("root"))
