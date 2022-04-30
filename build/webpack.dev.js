@@ -20,16 +20,16 @@ const devConfig = {
     proxy: {
       '/react/api': {
         target: "http://www.dell-lee.com",
-        secure: false, // 配置https的转发
+        // secure: false, // 配置https的转发
         pathRewrite: {
           "header.json": "demo.json"
         },
         changeOrigin: true,
-        bypass: function(req, res, proxyOptions) {
-          if(req.headers.accept.indexOf('html')!==-1){
-            return false
-          }
-        }
+        // bypass: function(req, res, proxyOptions) {
+        //   if(req.headers.accept.indexOf('html')!==-1){
+        //     return false
+        //   }
+        // }
       }
     },
     hot: true,
