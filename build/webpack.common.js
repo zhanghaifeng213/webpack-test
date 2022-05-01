@@ -46,7 +46,8 @@ module.exports = {
       },
       {
         test: /\.js$/,
-        exclude: /node_modules/, // 忽略第三方模块js代码，提高打包速度
+        // exclude: /node_modules/, // 忽略第三方模块js代码，提高打包速度
+        include: path.resolve(__dirname, '../src'),
         use: ['babel-loader'],
       },
     ],
