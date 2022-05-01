@@ -17,8 +17,11 @@ module.exports = {
   plugins: [
     'react',
   ],
+  globals: {
+    document: false,
+  },
   rules: {
     'react/prefer-stateless-function': 0,
-    'react/jsx-filename-extension': [1, { allow: 'as-needed' }],
+    'react/jsx-filename-extension': 0,
   },
 };

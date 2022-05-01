@@ -1,10 +1,10 @@
-const path = require("path");
-const HtmlWebpackPlugin = require("html-webpack-plugin");
-const CleanWebpackPlugin = require("clean-webpack-plugin");
+const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const CleanWebpackPlugin = require('clean-webpack-plugin');
 
 module.exports = {
   entry: {
-    main: "./src/index.js", // 入口
+    main: './src/index.js', // 入口
     // sub: './src/index.js'
   },
   module: {
@@ -12,10 +12,10 @@ module.exports = {
       {
         test: /\.(jpg|png|gif)$/,
         use: {
-          loader: "url-loader",
+          loader: 'url-loader',
           options: {
-            name: "[name]_[hash].[ext]",
-            outputPath: "images/",
+            name: '[name]_[hash].[ext]',
+            outputPath: 'images/',
             limit: 2048, // 生成base64,减少http请求，提高加载速度
           },
         },
@@ -23,49 +23,47 @@ module.exports = {
       {
         test: /\.scss$/,
         use: [
-          "style-loader",
+          'style-loader',
           {
-            loader: "css-loader",
+            loader: 'css-loader',
             options: {
               importLoaders: 2, // scss 引入的scss重新使用"sass-loader", "postcss-loader",处理
             },
           },
-          "sass-loader",
-          "postcss-loader",
+          'sass-loader',
+          'postcss-loader',
         ],
       },
       {
         test: /\.css$/,
-        use: ["style-loader", "css-loader", "postcss-loader"],
+        use: ['style-loader', 'css-loader', 'postcss-loader'],
       },
       {
         test: /\.(eot|ttf|svg)$/,
         use: {
-          loader: "file-loader",
+          loader: 'file-loader',
         },
       },
       {
         test: /\.js$/,
         exclude: /node_modules/, // 忽略第三方模块js代码，提高打包速度
-        use: {
-          loader: "babel-loader",
-        },
+        use: ['babel-loader'],
       },
     ],
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: "src/index.html",
+      template: 'src/index.html',
     }),
-    new CleanWebpackPlugin(["dist"], {
-      root: path.resolve(__dirname, "../")
+    new CleanWebpackPlugin(['dist'], {
+      root: path.resolve(__dirname, '../'),
     }),
   ],
   optimization: {
     splitChunks: {
       chunks: 'all',
       minSize: 30000, // 大于30kb做代码分割
-      maxSize: 0, // 50kb lodash 1mb 
+      maxSize: 0, // 50kb lodash 1mb
       minChunks: 1, // 至少一个依赖的文件被引入 进行代码分割
       maxAsyncRequests: 5,
       maxInitialRequests: 3,
@@ -82,15 +80,15 @@ module.exports = {
           // minChunks: 2,
           priority: -20,
           reuseExistingChunk: true,
-          filename: "common.js"
-        }
-      }
-    }
+          filename: 'common.js',
+        },
+      },
+    },
   },
   output: {
     // publicPath: "http:cdn.com",
-    filename: "[name].js", // name 对应entry
-    path: path.resolve(__dirname, "../dist"),
-    publicPath: "/",
+    filename: '[name].js', // name 对应entry
+    path: path.resolve(__dirname, '../dist'),
+    publicPath: '/',
   },
-}
+};

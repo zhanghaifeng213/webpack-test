@@ -1,3 +1,3 @@
 export default {
-    name: "hello world"
-}
+  name: 'hello world',
+};

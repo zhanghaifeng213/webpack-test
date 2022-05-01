@@ -10,8 +10,6 @@ import ReactDom from 'react-dom';
 import Home from './home';
 import List from './list';
 
-const rootElement = document.getElementById('root');
-
 class App extends Component {
   render() {
     return (
@@ -21,7 +19,6 @@ class App extends Component {
           <Route path="/" exact element={<Home />} />
           <Route path="/list" element={<List />} />
         </Routes>
-
       </BrowserRouter>
     );
   }

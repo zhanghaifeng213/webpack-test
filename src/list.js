@@ -1,11 +1,12 @@
-import React, {Component} from "react"
+import React, { Component } from 'react';
 
 class List extends Component {
   componentDidMount() {
-    console.log("ListPage");
+    console.log('ListPage');
   }
+
   render() {
-    return <div>ListPage</div>
+    return <div>ListPage</div>;
   }
 }
 
