@@ -1,11 +1,12 @@
-import React, {Component} from "react"
+import React, { Component } from 'react';
 
 class Home extends Component {
   componentDidMount() {
-    console.log("HomePage");
+    console.log('HomePage');
   }
+
   render() {
-    return <div>HomePage</div>
+    return <div>HomePage</div>;
   }
 }
 

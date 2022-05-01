@@ -1,22 +1,19 @@
-
 import {
   BrowserRouter,
   Routes,
   Route,
-  Link
-} from "react-router-dom";
+  Link,
+} from 'react-router-dom';
 
-import Home from "./home";
-import List from "./list";
+import React, { Component } from 'react';
+import ReactDom from 'react-dom';
+import Home from './home';
+import List from './list';
 
-const rootElement = document.getElementById("root");
-
-
-import React, {Component} from "react"
-import ReactDom from "react-dom";
+const rootElement = document.getElementById('root');
 
 class App extends Component {
-  render(){
+  render() {
     return (
       <BrowserRouter>
         <Link to="/list">qqq</Link>
@@ -24,10 +21,10 @@ class App extends Component {
           <Route path="/" exact element={<Home />} />
           <Route path="/list" element={<List />} />
         </Routes>
-      
+
       </BrowserRouter>
-    )
+    );
   }
 }
 
-ReactDom.render(<App/>,document.getElementById("root"))
+ReactDom.render(<App />, document.getElementById('root'));
