@@ -7,6 +7,13 @@ module.exports = {
     main: './src/index.js', // 入口
     // sub: './src/index.js'
   },
+  resolve: {
+    extensions: ['.css', '.jpg', '.js', '.jsx'],
+    alias: {
+      hello: path.resolve(__dirname, '../src/child'),
+    },
+    mainFiles: ['index', 'child'],
+  },
   module: {
     rules: [
       {
@@ -45,7 +52,7 @@ module.exports = {
         },
       },
       {
-        test: /\.js$/,
+        test: /\.jsx?$/,
         // exclude: /node_modules/, // 忽略第三方模块js代码，提高打包速度
         include: path.resolve(__dirname, '../src'),
         use: ['babel-loader'],
