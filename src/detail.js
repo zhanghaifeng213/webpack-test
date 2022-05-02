@@ -5,7 +5,7 @@ class List extends Component {
   render() {
     return (
       <div>
-        <div>This is listPage</div>
+        <div>This is detailPage</div>
       </div>
     );
   }

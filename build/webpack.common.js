@@ -5,32 +5,56 @@ const CleanWebpackPlugin = require('clean-webpack-plugin');
 const webpack = require('webpack');
 const fs = require('fs');
 
-const plugins = [
-  new HtmlWebpackPlugin({
-    template: 'src/index.html',
-  }),
-  new CleanWebpackPlugin(['dist'], {
-    root: path.resolve(__dirname, '../'),
-  }),
-];
+// const plugins = [
+//   new HtmlWebpackPlugin({
+//     template: 'src/index.html',
+//     filename: 'index.html',
+//     chunks: ['runtime', 'vendors', 'main'],
+//   }),
+//   new HtmlWebpackPlugin({
+//     template: 'src/index.html',
+//     filename: 'list.html',
+//     chunks: ['runtime', 'vendors', 'list'],
+//   }),
 
-const files = fs.readdirSync(path.resolve(__dirname, '../dll'));
-files.forEach((file) => {
-  if (/.*\.dll.js/.test(file)) {
-    plugins.push(new AddAssetHtmlWebpackPlugin({
-      filepath: path.resolve(__dirname, '../dll', file),
-    }));
-  }
-  if (/.*\.manifest.json/.test(file)) {
-    plugins.push(new webpack.DllReferencePlugin({
-      manifest: path.resolve(__dirname, '../dll', file),
-    }));
-  }
-});
+// ];
 
-module.exports = {
+const makePlugins = (configs) => {
+  const plugins = [
+    new CleanWebpackPlugin(['dist'], {
+      root: path.resolve(__dirname, '../'),
+    }),
+  ];
+
+  Object.keys(configs.entry).forEach((item) => {
+    plugins.push(new HtmlWebpackPlugin({
+      template: 'src/index.html',
+      filename: `${item}.html`,
+      chunks: ['runtime', 'vendors', item],
+    }));
+  });
+  const files = fs.readdirSync(path.resolve(__dirname, '../dll'));
+  files.forEach((file) => {
+    if (/.*\.dll.js/.test(file)) {
+      plugins.push(new AddAssetHtmlWebpackPlugin({
+        filepath: path.resolve(__dirname, '../dll', file),
+      }));
+    }
+    if (/.*\.manifest.json/.test(file)) {
+      plugins.push(new webpack.DllReferencePlugin({
+        manifest: path.resolve(__dirname, '../dll', file),
+      }));
+    }
+  });
+
+  return plugins;
+};
+
+const configs = {
   entry: {
-    main: './src/index.js', // 入口
+    index: './src/index.js', // 入口
+    list: './src/list.js',
+    detail: './src/detail.js',
     // sub: './src/index.js'
   },
   resolve: {
@@ -85,7 +109,6 @@ module.exports = {
       },
     ],
   },
-  plugins,
   optimization: {
     splitChunks: {
       chunks: 'all',
@@ -119,3 +142,7 @@ module.exports = {
     publicPath: '/',
   },
 };
+
+configs.plugins = makePlugins(configs);
+
+module.exports = configs;
