@@ -30,5 +30,28 @@ const  moduleAnylaser = (filename) => {
   }
 }
 
-const moduleInfo = moduleAnylaser('./src/index.js')
-console.log("moduleInfo", moduleInfo);
+const makeDependenciesGraph = (entry) => {
+  const entryModule = moduleAnylaser(entry)
+  const graphArray = [entryModule]
+  for(let i = 0;i<graphArray.length;i++) {
+    const item = graphArray[i]
+    const {dependencies} = item
+    if(dependencies) {
+      for(let j in dependencies) {
+        graphArray.push(moduleAnylaser(dependencies[j]))
+      }
+    }
+  }
+  const graph = {}
+  graphArray.forEach((item)=>{
+    graph[item.filename] = {
+      dependencies: item.dependencies,
+      code: item.code
+    }
+  })
+  
+  return graph
+}
+
+const graghInfo = makeDependenciesGraph('./src/index.js')
+console.log("graghInfo", graghInfo);

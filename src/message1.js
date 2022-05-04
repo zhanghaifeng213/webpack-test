@@ -1,5 +1,3 @@
-import { word } from "./word.js"
-
-const message  = `say ${word}`
+const message  = `say m1`
 
 export default message
