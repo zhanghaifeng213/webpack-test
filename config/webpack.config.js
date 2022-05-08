@@ -1,5 +1,7 @@
 'use strict';
 
+// 输出打包内容
+
 const fs = require('fs');
 const path = require('path');
 const webpack = require('webpack');
@@ -220,8 +222,10 @@ module.exports = function (webpackEnv) {
       // webpack uses `publicPath` to determine where the app is being served from.
       // It requires a trailing slash, or the file assets will get an incorrect path.
       // We inferred the "public path" (such as / or /my-project) from homepage.
+      // 
       publicPath: paths.publicUrlOrPath,
       // Point sourcemap entries to original disk location (format as URL on Windows)
+      // 解决 sourceMap定位不准的问题
       devtoolModuleFilenameTemplate: isEnvProduction
         ? info =>
             path
@@ -247,7 +251,7 @@ module.exports = function (webpackEnv) {
       level: 'none',
     },
     optimization: {
-      minimize: isEnvProduction,
+      minimize: isEnvProduction, // 生产环境代码压缩
       minimizer: [
         // This is only used in production mode
         new TerserPlugin({
@@ -293,11 +297,13 @@ module.exports = function (webpackEnv) {
         new CssMinimizerPlugin(),
       ],
     },
-    resolve: {
+    resolve: { // 引入其他模块时生效
       // This allows you to set a fallback for where webpack should look for modules.
       // We placed these paths second because we want `node_modules` to "win"
       // if there are any conflicts. This matches Node resolution mechanism.
       // https://github.com/facebook/create-react-app/issues/253
+      
+      // 引入模块到数组里对应的文件夹去找
       modules: ['node_modules', paths.appNodeModules].concat(
         modules.additionalModulePaths || []
       ),
@@ -307,6 +313,8 @@ module.exports = function (webpackEnv) {
       // https://github.com/facebook/create-react-app/issues/290
       // `web` extension prefixes have been added for better support
       // for React Native Web.
+
+      // 找对应文件后缀
       extensions: paths.moduleFileExtensions
         .map(ext => `.${ext}`)
         .filter(ext => useTypeScript || !ext.includes('ts')),
@@ -338,11 +346,11 @@ module.exports = function (webpackEnv) {
       ],
     },
     module: {
-      strictExportPresence: true,
+      strictExportPresence: true, // 引入的模块必须明确导出自己的内容
       rules: [
         // Handle node_modules packages that contain sourcemaps
         shouldUseSourceMap && {
-          enforce: 'pre',
+          enforce: 'pre', // 
           exclude: /@babel(?:\/|\\{1,2})runtime/,
           test: /\.(js|mjs|jsx|ts|tsx|css)$/,
           loader: require.resolve('source-map-loader'),
@@ -351,6 +359,8 @@ module.exports = function (webpackEnv) {
           // "oneOf" will traverse all following loaders until one will
           // match the requirements. When no loader matches it will fall
           // back to the "file" loader at the end of the loader list.
+
+          // 打包文件的时候可以到下面找loader,直到找到为止
           oneOf: [
             // TODO: Merge this config once `image/avif` is in the mime-db
             // https://github.com/jshttp/mime-db
@@ -451,7 +461,7 @@ module.exports = function (webpackEnv) {
                     { helpers: true },
                   ],
                 ],
-                cacheDirectory: true,
+                cacheDirectory: true, // 缓存
                 // See #6846 for context on why cacheCompression is disabled
                 cacheCompression: false,
                 
@@ -623,7 +633,7 @@ module.exports = function (webpackEnv) {
       // See https://github.com/facebook/create-react-app/issues/240
       isEnvDevelopment && new CaseSensitivePathsPlugin(),
       isEnvProduction &&
-        new MiniCssExtractPlugin({
+        new MiniCssExtractPlugin({ // css代码分离
           // Options similar to the same options in webpackOptions.output
           // both options are optional
           filename: 'static/css/[name].[contenthash:8].css',

@@ -1,5 +1,6 @@
 'use strict';
 
+// 初始化环境变量的文件
 const fs = require('fs');
 const path = require('path');
 const paths = require('./paths');
