@@ -1,21 +1,23 @@
 'use strict';
 
 // Do this as the first thing so that any code reading it knows the right env.
-process.env.BABEL_ENV = 'production';
-process.env.NODE_ENV = 'production';
+process.env.BABEL_ENV = 'production'; // 定义环境变量
+process.env.NODE_ENV = 'production'; // 定义环境变量
 
 // Makes the script crash on unhandled rejections instead of silently
 // ignoring them. In the future, promise rejections that are not handled will
 // terminate the Node.js process with a non-zero exit code.
+
+// 在打包过程中遇到无法处理的异常，要及时的抛出异常
 process.on('unhandledRejection', err => {
   throw err;
 });
 
 // Ensure environment variables are read.
-require('../config/env');
+require('../config/env'); // 执行以下，执行过程中给全局变量赋值
 
 const path = require('path');
-const chalk = require('react-dev-utils/chalk');
+const chalk = require('react-dev-utils/chalk'); // 命令行提示美观
 const fs = require('fs-extra');
 const bfj = require('bfj');
 const webpack = require('webpack');
@@ -47,6 +49,7 @@ const argv = process.argv.slice(2);
 const writeStatsJson = argv.indexOf('--stats') !== -1;
 
 // Generate configuration
+// 得到一个打包所需要的webpack配置内容
 const config = configFactory('production');
 
 // We require that you explicitly set browsers and do not fall back to

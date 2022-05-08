@@ -192,6 +192,7 @@ module.exports = function (webpackEnv) {
     stats: 'errors-warnings',
     mode: isEnvProduction ? 'production' : isEnvDevelopment && 'development',
     // Stop compilation early in production
+    // 一旦打包过程中遇到错误就及时停止，就不在往下去打包了，直接报错。开发环境可以继续打包，线上环境遇到错误停止。
     bail: isEnvProduction,
     devtool: isEnvProduction
       ? shouldUseSourceMap

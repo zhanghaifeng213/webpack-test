@@ -5,17 +5,18 @@ const path = require('path');
 const paths = require('./paths');
 
 // Make sure that including paths.js after env.js will read .env variables.
+// 清除require.cache中的缓存，使得能够拿到paths中最新的内容。
 delete require.cache[require.resolve('./paths')];
 
 const NODE_ENV = process.env.NODE_ENV;
-if (!NODE_ENV) {
+if (!NODE_ENV) { // 判断打包环境，不然不会执行
   throw new Error(
     'The NODE_ENV environment variable is required but was not specified.'
   );
 }
 
 // https://github.com/bkeepers/dotenv#what-other-env-files-can-i-use
-const dotenvFiles = [
+const dotenvFiles = [ // 到文件里读取全局变量，定义到打包过程之中
   `${paths.dotenv}.${NODE_ENV}.local`,
   // Don't include `.env.local` for `test` environment
   // since normally you expect tests to produce the same
@@ -30,6 +31,8 @@ const dotenvFiles = [
 // that have already been set.  Variable expansion is supported in .env files.
 // https://github.com/motdotla/dotenv
 // https://github.com/motdotla/dotenv-expand
+
+// 先去读文件，再去读全局变量，再去定义全局变量
 dotenvFiles.forEach(dotenvFile => {
   if (fs.existsSync(dotenvFile)) {
     require('dotenv-expand')(
@@ -49,6 +52,8 @@ dotenvFiles.forEach(dotenvFile => {
 // Otherwise, we risk importing Node.js core modules into an app instead of webpack shims.
 // https://github.com/facebook/create-react-app/issues/1023#issuecomment-265344421
 // We also resolve them to make sure all tools using them work consistently.
+
+// 获取当前目录的路径，放到NODE_PAth下面
 const appDirectory = fs.realpathSync(process.cwd());
 process.env.NODE_PATH = (process.env.NODE_PATH || '')
   .split(path.delimiter)
@@ -60,6 +65,8 @@ process.env.NODE_PATH = (process.env.NODE_PATH || '')
 // injected into the application via DefinePlugin in webpack configuration.
 const REACT_APP = /^REACT_APP_/i;
 
+
+// 结合外部传来的路径对全局变量进行一个整理，最终把他输出出去
 function getClientEnvironment(publicUrl) {
   const raw = Object.keys(process.env)
     .filter(key => REACT_APP.test(key))
